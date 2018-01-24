@@ -33,15 +33,14 @@ PRELAB:
         $ cd ..
     will take me to directory foo.
 
-   ~ refers to home directory.
+   ~ refers to home directory of current user.
   
    E.g. Logged in as user elijah running foo linux.
         $ cd ~ 
         takes me to /home/elijah/
 
-        Logged in as root running foo linux.
-        $ cd ~ 
-        takes me to the root directory           
+   / refers to root. This is the top level directory of the system.
+     
    
 6.  pid is short for process ID. A unique process ID is assigned to every processs when 
     it is created. There are many ways to indentify process IDs :
