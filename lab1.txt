@@ -67,9 +67,9 @@ PRELAB:
   specifying sudo with flag -i allows you to drop into a new shell similar to ' su root '.
   By using  $ visudo , you can set the permissions for sudo with various options by editing /etc/sudoers, like:
  
- - the ability to run sudo with or  without a password for certain users
+ - the ability to run sudo with or without a password for certain users
  - the ability to run sudo with or without a password for certain users that are members of a specific group
- - the ability to run sudo on ceratin programs only.
+ - the ability to run sudo on certain programs only.
 
 9. In *nix based systems. you can use a 'cron' software to schedule specific tasks to be scheduled into certain time 
    intervals. There are many implementations of 'cron' softwares, like 'acron' or 'fcron'. Cron softwares let you schedule things 
