@@ -55,11 +55,11 @@ PRELAB:
    
    as a result, cut prints out the name of the user, and the default shell they use seperated by a :.
 
-8. su allows you to switch to any given user with their permissions, e.g.
+8. su allows you to drop into a new shell of any given user with their permissions, e.g.
   users : elijah , root , foo
   logged into elijah
   $ su foo  
-  will log you into foo with all permissions of foo.
+  will log you into foo with a new shell with all the permissions of foo.
 
   So, using  $su root switches user to root with a shell of the permissions of 'root' 
 
