@@ -1,3 +1,9 @@
+Elijah Cordova
+1425119
+Lab 1 : CE 150
+
+PRELAB:
+
 1. $ groups
 
 2. The environmental variable $ contains your PATH, which looks for executables in your system. For example, using echo $SHELL 
@@ -70,4 +76,16 @@
    yearly,monthy,weekly,daily,hourly,by the minute,etc. For example, I can set up a scipt that backs up a system, ./backup.sh, 
    to run every week on monday at 1:00 and I would have weekly backups given that the computer is on at that time.
 
- 
+10. (see script)
+
+LAB: 
+
+2. Each host is pinging all of the other hosts that it can reach : In this case, all of the hosts are connected to one switch, so it pings
+   all other hosts except for itself. 
+3. 'iperf' runs at 30 Gbits/second.
+4a. There are 5 requests, and as a result there are 5 of_packet_in displayed on wireshark. 
+ b. The source is '10.0.0.2' and the destination is '10.0.0.4' , which are the IP addresses assigned to the hosts.
+   using the fileter does not yield any results using the filter 'of'.
+ c. There are 57 entries, meaning that there are ~14 entries per ping. The entries are either of 'request' or reply'.
+
+
