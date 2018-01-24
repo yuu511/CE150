@@ -59,6 +59,7 @@ PRELAB:
   users : elijah , root , foo
   logged into elijah
   $ su foo  
+  will log you into foo with all permissions of foo.
 
   So, using  $su root switches user to root with a shell of the permissions of 'root' 
 
