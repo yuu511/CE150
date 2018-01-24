@@ -41,7 +41,7 @@ PRELAB:
 
         Logged in as root running foo linux.
         $ cd ~ 
-        takes me to the root directory .          
+        takes me to the root directory           
    
 6.  pid is short for process ID. A unique process ID is assigned to every processs when 
     it is created. There are many ways to indentify process IDs :
