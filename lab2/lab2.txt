@@ -1,0 +1,6 @@
+1.  200 : OK : A request was sucessfully fufilled.
+    201 : CREATED : After a POST or PUT request, a new entry in the server was sucessfully created.
+   404 :  Not found : The server could not find the entry requested.
+400 : Bad Request: The server could not process your request as it was formatted wrong / could not be read
+   301 : moved : The entry requested has moved to a new URI.
+  
