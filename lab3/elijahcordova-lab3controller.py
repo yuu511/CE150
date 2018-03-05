@@ -27,9 +27,8 @@ class Firewall (object):
     msg = of.ofp_packet_out(in_port=event.ofp.in_port)
     if event.ofp.buffer_id is not None and event.ofp.buffer_id != -1:
        msg.buffer_id = event.ofp.buffer_id
-    else:
-      if event.ofp.data:
-        return
+    elif event.ofp.data is None:
+       return
     msg.actions.append(of.ofp_action_output(port = dst_port))
     event.connection.send(msg)
 
