@@ -51,7 +51,7 @@ class Firewall (object):
     tcpp = event.parsed.find('tcp')
     arpp = event.parsed.find('arp')
     if tcpp is None and arpp is None:
-      print "wat"
+      print "NTA"
       return 
     # build flow both ways
     valid[(event.connection,packet.src)] = event.port
@@ -60,15 +60,16 @@ class Firewall (object):
       self.send(event, of.OFPP_ALL)
     else:
       msg = of.ofp_flow_mod()
-      msg.idle_timeout = 10
-      msg.hard_timeout = 30     
+      msg.idle_timeout = 1000
+      msg.hard_timeout = 3000     
       if tcpp is not None: 
         msg.match.dl_type = 0x800
         msg.match.nw_proto = 6
-        print "lololol"
-      else:  
+        print "T"
+      elif arpp is not None:  
         msg.match.dl_type = 0x806
-        msg.match.nw_proto = None 
+        msg.match.nw_proto = None
+        print "A" 
       msg.match.dl_src = packet.src
       msg.match.dl_dst = packet.dst
       msg.actions.append(of.ofp_action_output(port = destination))
