@@ -23,7 +23,7 @@ class Firewall (object):
     connection.addListeners(self)
   
   # send packet
-  def send(self,event,dst_port = of.OFPP_ALL):
+  def send(self,event,dst_port=of.OFPP_ALL):
     msg = of.ofp_packet_out(in_port=event.ofp.in_port)
     if event.ofp.buffer_id is not None and event.ofp.buffer_id != -1:
        msg.buffer_id = event.ofp.buffer_id
