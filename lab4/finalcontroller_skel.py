@@ -109,7 +109,7 @@ class Final (object):
          print port_on_switch
          print switch_id 
          self.installFlow(ip_packet.srcip,ip_packet.dstip,port_on_switch,switch_id,0x800,6)
-         self.installFlow(ip_packet.dstip,ip_packet.srcip,switch_id,port_on_switch,0x800,6)
+         self.installFlow(ip_packet.dstip,ip_packet.srcip,port_on_switch,switch_id,0x800,6)
     print "LUL"
 
   def _handle_PacketIn (self, event):
