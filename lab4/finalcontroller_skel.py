@@ -143,8 +143,6 @@ class Final (object):
              Final.resend (self,packet,4)
            if (ip_packet.dstip == '10.5.5.50'):
              Final.resend (self,packet,5)
-           if (ip_packet.dstip == '123.45.67.89'):
-             Final.resend (self,packet,13)
 
 
        if ip_packet.protocol == ip_packet.ICMP_PROTOCOL:
