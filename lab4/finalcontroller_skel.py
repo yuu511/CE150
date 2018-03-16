@@ -118,10 +118,9 @@ class Final (object):
            print "SWITCH ID 4"
            self.installFlow(ip_packet.srcip,ip_packet.dstip,port_on_switch,1,0x800,6)
            self.installFlow(ip_packet.dstip,ip_packet.srcip,1,port_on_switch,0x800,6)
-       if ip_packet.protocol == ip_packet.ICMP_PROTOCOL:
-         self.installFlow(ip_packet.srcip,ip_packet.dstip,None,None,0x800,1)
-         self.installFlow(ip_packet.dstip,ip_packet.srcip,None,None,0x800,1)
-         Final.resend (self,packet,port_on_switch)
+           if (ip_packet.dstip == '10.5.5.50')
+             print "yatta"
+             Final.resend (self,packet,5)
 
   def _handle_PacketIn (self, event):
     """
