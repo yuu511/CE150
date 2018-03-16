@@ -74,7 +74,7 @@ class Final (object):
     #      (for example, s1 would have switch_id == 1, s2 would have switch_id == 2, etc...)
     # You should use these to determine where a packet came from. To figure out where a packet 
     # is going, you can use the IP header information.
-    print "Example code."
+    print ""
 
   def _handle_PacketIn (self, event):
     """
@@ -85,6 +85,8 @@ class Final (object):
       log.warning("Ignoring incomplete packet")
       return
 
+    if packet.type == packet.IP_TYPE:
+      print "lul"
     self.send(event,of.OFPP_ALL)
     packet_in = event.ofp # The actual ofp_packet_in message.
     self.do_final(packet, packet_in, event.port, event.dpid)
