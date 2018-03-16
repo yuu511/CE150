@@ -90,6 +90,8 @@ class Final (object):
 
     if packet.type == packet.IP_TYPE:
        ip_packet = packet.payload 
+       if packet.find("ip")==None
+         return
        print "PACKET IS OF IP TYPE \n"
        print ip_packet.scrip
        print ip_packet.srcport
