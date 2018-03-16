@@ -89,6 +89,7 @@ class Final (object):
     self.do_final(packet, packet_in, event.port, event.dpid)
     ipv4 = packet.find('ipv4')
     if packet.type == packet.IP_TYPE and ipv4 is not None:
+       ip_packet = packet.payload
        print "PACKET IS OF IP TYPE \n"
        print ip_packet.scrip
        print ip_packet.srcport
