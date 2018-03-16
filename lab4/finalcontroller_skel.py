@@ -81,7 +81,6 @@ class Final (object):
     msg.priority = 2
     action = of.ofp_action_output(port = tp_dst)
     msg.actions.append(action)
-    print msg
     self.connection.send(msg)
 
   def resend (self,packet,tp_dst):
@@ -104,6 +103,7 @@ class Final (object):
     if ipv4 != None:
        ip_packet = packet.payload
        if ip_packet.protocol == ip_packet.TCP_PROTOCOL:
+         print packet.payload
          self.installFlow(ip_packet.srcip,ip_packet.dstip,port_on_switch,switch_id,0x800,6)
          self.installFlow(ip_packet.dstip,ip_packet.srcip,switch_id,port_on_switch,0x800,6)
          Final.resend (self,packet,switch_id)
