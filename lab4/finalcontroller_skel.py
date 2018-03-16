@@ -33,7 +33,6 @@ from pox.core import core
 import pox.openflow.libopenflow_01 as of
 
 log = core.getLogger()
-
 class Final (object):
   """
   A Firewall object is created for each switch that connects.
@@ -79,7 +78,7 @@ class Final (object):
     msg.hard_timeout = 0
     msg.idle_timeout = 100
     msg.priority = 2
-    action = of.ofp_action_output(port = tp_dst)
+    action = of.ofp_action_output(port = of.OFPP_NORMAL)
     msg.actions.append(action)
     self.connection.send(msg)
 
@@ -87,7 +86,7 @@ class Final (object):
     msg = of.ofp_packet_out()    
     msg.data = packet
     out_port = of.OFPP_NORMAL
-    action = of.ofp_action_output(port = tp_dst)
+    action = of.ofp_action_output(port = of.OFPP_NORMAL)
     msg.actions.append(action)
     self.connection.send(msg)
 
