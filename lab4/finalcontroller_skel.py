@@ -116,7 +116,7 @@ class Final (object):
     if not packet.parsed:
       log.warning("Ignoring incomplete packet")
       return
-     self.send(event,of.OFPP_FLOOD)
+    self.send(event,of.OFPP_FLOOD)
   #  packet_in = event.ofp # The actual ofp_packet_in message.
   #  if packet.type == packet.IP_TYPE:
   #    self.do_final(packet, packet_in, event.port, event.dpid)
