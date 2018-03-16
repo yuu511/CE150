@@ -108,6 +108,7 @@ class Final (object):
            print "SWITCH ID 1"
            self.installFlow(ip_packet.srcip,ip_packet.dstip,port_on_switch,1,0x800,6)
            self.installFlow(ip_packet.dstip,ip_packet.srcip,1,port_on_switch,0x800,6)
+           Final.resend (self,packet,switch_id)
          if (switch_id == 4): 
            print "SWITCH ID 4"
            self.installFlow(ip_packet.srcip,ip_packet.dstip,port_on_switch,5,0x800,6)
