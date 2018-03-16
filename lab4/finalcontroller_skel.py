@@ -115,9 +115,6 @@ class Final (object):
          if (switch_id == 4): 
            self.installFlow(ip_packet.srcip,ip_packet.dstip,tcp_packet.srcport,tcp_packet.dstport,0x800,6)
            self.installFlow(ip_packet.dstip,ip_packet.srcip,tcp_packet.dstport,tcp_packet.srcport,0x800,6)
-           print tcp_packet.srcport
-           print " "
-           print tcp_packet.dstport
          if (ip_packet.dstip == '10.5.5.50'):
            print "yatta"
            Final.resend (self,packet,5)
