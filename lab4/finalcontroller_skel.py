@@ -105,22 +105,22 @@ class Final (object):
        if ip_packet.protocol == ip_packet.TCP_PROTOCOL:
          tcp_packet = ip_packet.payload
          if (switch_id == 1):
-           print "SWITCH ID 1"
            self.installFlow(ip_packet.srcip,ip_packet.dstip,tcp_packet.srcport,tcp_packet.dstport,0x800,6)
            self.installFlow(ip_packet.dstip,ip_packet.srcip,tcp_packet.dstport,tcp_packet.srcport,0x800,6)
            Final.resend (self,packet,1)  
          if (switch_id == 5):
-           print "SWITCH ID 5"
            self.installFlow(ip_packet.srcip,ip_packet.dstip,tcp_packet.srcport,tcp_packet.dstport,0x800,6)
            self.installFlow(ip_packet.dstip,ip_packet.srcip,tcp_packet.dstport,tcp_packet.srcport,0x800,6)
            Final.resend (self,packet,1)
          if (switch_id == 4): 
-           print "SWITCH ID 4"
-           self.installFlow(ip_packet.srcip,ip_packet.dstip,tcp_packet.dstport,tcp_packet.srcport,0x800,6)
-           self.installFlow(ip_packet.dstip,ip_packet.srcip,tcp_packet.srcport,tcp_packet.dstport,0x800,6)
-           if (ip_packet.dstip == '10.5.5.50'):
-             print "yatta"
-             Final.resend (self,packet,5)
+           self.installFlow(ip_packet.srcip,ip_packet.dstip,tcp_packet.srcport,tcp_packet.dstport,0x800,6)
+           self.installFlow(ip_packet.dstip,ip_packet.srcip,tcp_packet.dstport,tcp_packet.srcport,0x800,6)
+           print tcp_packet.srcport
+           print " "
+           print tcp_packet.dstport
+         if (ip_packet.dstip == '10.5.5.50'):
+           print "yatta"
+           Final.resend (self,packet,5)
 
   def _handle_PacketIn (self, event):
     """
