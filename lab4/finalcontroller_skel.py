@@ -106,9 +106,12 @@ class Final (object):
          tcp_packet = ip_packet.payload
          print port_on_switch
          print switch_id
-         self.installFlow(ip_packet.srcip,ip_packet.dstip,port_on_switch,switch_id,0x800,6)
-         self.installFlow(ip_packet.dstip,ip_packet.srcip,switch_id,port_on_switch,0x800,6)
-         Final.resend (self,packet,switch_id)
+         if (switch_id == 1):
+           self.installFlow(ip_packet.srcip,ip_packet.dstip,port_on_switch,1,0x800,6)
+           self.installFlow(ip_packet.dstip,ip_packet.srcip,1,port_on_switch,0x800,6)
+         if (switch_id == 4): 
+           self.installFlow(ip_packet.srcip,ip_packet.dstip,port_on_switch,5,0x800,6)
+           self.installFlow(ip_packet.dstip,ip_packet.srcip,5,port_on_switch,0x800,6)
        if ip_packet.protocol == ip_packet.ICMP_PROTOCOL:
          self.installFlow(ip_packet.srcip,ip_packet.dstip,None,None,0x800,1)
          self.installFlow(ip_packet.dstip,ip_packet.srcip,None,None,0x800,1)
