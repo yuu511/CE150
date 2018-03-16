@@ -116,9 +116,9 @@ class Final (object):
            Final.resend (self,packet,1)
          if (switch_id == 4): 
            print "SWITCH ID 4"
-           self.installFlow(ip_packet.srcip,ip_packet.dstip,port_on_switch,5,0x800,6)
-           self.installFlow(ip_packet.dstip,ip_packet.srcip,5,port_on_switch,0x800,6)
-           Final.resend (self,packet,5)
+           self.installFlow(ip_packet.srcip,ip_packet.dstip,port_on_switch,1,0x800,6)
+           self.installFlow(ip_packet.dstip,ip_packet.srcip,1,port_on_switch,0x800,6)
+           Final.resend (self,packet,port_on_switch)
        if ip_packet.protocol == ip_packet.ICMP_PROTOCOL:
          self.installFlow(ip_packet.srcip,ip_packet.dstip,None,None,0x800,1)
          self.installFlow(ip_packet.dstip,ip_packet.srcip,None,None,0x800,1)
