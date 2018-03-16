@@ -100,7 +100,7 @@ class Final (object):
     # You should use these to determine where a packet came from. To figure out where a packet 
     # is going, you can use the IP header information.
     ipv4 = packet.find('ipv4')
-    if ipv4 is not None:
+    if ipv4 != None:
        ip_packet = packet.payload
        if ip_packet.protocol == ip_packet.TCP_PROTOCOL:
          self.installFlow(ip_packet.srcip,ip_packet.dstip,port_on_switch,switch_id,0x800,6)
@@ -111,13 +111,13 @@ class Final (object):
     """
     Handles packet in messages from the switch.
     """
+    
     packet = event.parsed # This is the parsed packet data.
     if not packet.parsed:
       log.warning("Ignoring incomplete packet")
       return
 
     packet_in = event.ofp # The actual ofp_packet_in message.
-    self.send(event,of.OFPP_FLOOD)
     #if packet.type == packet.IP_TYPE:
     #  self.do_final(packet, packet_in, event.port, event.dpid)
     #else:
