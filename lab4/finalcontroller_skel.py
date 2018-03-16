@@ -94,6 +94,8 @@ class Final (object):
        if ip_packet.protocol == ip_packet.TCP_PROTOCOL:
          print ip_packet.srcip
          print ip_packet.dstip
+         print tcp_packet.srcport
+         print tcp_packet.dstport
       
     else:
       print "PACKET IS NOT OF IP TYPE. PREPARE TO FLOOD"
