@@ -48,12 +48,12 @@ class Final (object):
     connection.addListeners(self)
     
     # Drop all Packets that aren't defined
-    msg = of.ofp_flow_mod()
-    match = of.ofp_match()
-    msg.match = match
-    msg.hard_timeout = 0
-    msg.soft_timeout = 0
-    msg.priority = 1
+    # msg = of.ofp_flow_mod()
+    #  match = of.ofp_match()
+    # msg.match = match
+    # msg.hard_timeout = 0
+    # msg.soft_timeout = 0
+    # msg.priority = 1
      
 
   # flood packet method 
@@ -65,6 +65,29 @@ class Final (object):
        return
     msg.actions.append(of.ofp_action_output(port = dst_port))
     event.connection.send(msg)
+   
+  def installFlow (self,nw_src,nw_dst,tp_src,tp_dst,dl_type,nw_proto):
+    msg = of.ofp_flow_mod()
+    match = of.ofp_match()
+    match.nw_src = nw_src
+    match.nw_dst = nw_dst
+    match.tp_src = tp_src
+    match.tp_dst = tp_dst
+    match.nw_proto = nw_proto
+    match.dl_type = dl_type
+    msg.match = match
+    msg.hard_timeout = 0
+    msg.idle_timeout = 100
+    msg.priority = 2
+    action = of.ofp_action_output(port = of.OFPP_NORMAL)
+    msg.actions.append(action)
+    self.connection.send(msg)
+
+  def resend (self,packet):
+    msg = of.ofp_packet_out()
+    out_port = of.OFPP_NORMAL
+    action = of.ofp_action_output(port = out_port)
+    msg.actions.append(action)
 
   def do_final (self, packet, packet_in, port_on_switch, switch_id):
     # This is where you'll put your code. The following modifications have 
@@ -83,6 +106,9 @@ class Final (object):
          print ip_packet.dstip
          print port_on_switch
          print switch_id 
+         self.installFlow(ip_packet.scrip,ip_packet.dstip,port_on_switch,switch_id,0x800,6)
+         self.installFlow(ip_packet.dstip,ip_packet,scrip,switch_id,port_on_switch,0x800,6)
+         self.resend (packet) 
 
   def _handle_PacketIn (self, event):
     """
