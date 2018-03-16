@@ -105,7 +105,7 @@ class Final (object):
        ip_packet = packet.payload
        if ip_packet.protocol == ip_packet.TCP_PROTOCOL:
          self.installFlow(ip_packet.srcip,ip_packet.dstip,port_on_switch,switch_id,0x800,6)
-         self.installFlow(ip_packet.dstip,ip_packet.srcip,port_on_switch,switch_id,0x800,6)
+         self.installFlow(ip_packet.dstip,ip_packet.srcip,switch_id,port_on_switch,0x800,6)
          Final.resend (self,packet,switch_id)
 
   def _handle_PacketIn (self, event):
