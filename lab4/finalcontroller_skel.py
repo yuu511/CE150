@@ -33,6 +33,7 @@ from pox.core import core
 import pox.openflow.libopenflow_01 as of
 
 log = core.getLogger()
+valid={}
 class Final (object):
   """
   A Firewall object is created for each switch that connects.
@@ -82,7 +83,7 @@ class Final (object):
     msg.actions.append(action)
     self.connection.send(msg)
 
-  def resend (self,packet,tp_dst):
+  def resend (self,packet):
     msg = of.ofp_packet_out()    
     msg.data = packet
     out_port = of.OFPP_NORMAL
@@ -107,10 +108,11 @@ class Final (object):
          self.installFlow(ip_packet.dstip,ip_packet.srcip,tcp_packet.srcport,tcp_packet.dstport,0x800,6)
          Final.resend (self,packet,switch_id)
        if ip_packet.protocol == ip_packet.ICMP_PROTOCOL:
-         print "yeet"
+         self.installFlow(ip_packet.scrip,ip_packet.dstip,None,None,0x806,None)
+         self.installFlow(ip_packet.dstip,ip_packet.srcip,None,None,0x800,None)
          self.installFlow(ip_packet.srcip,ip_packet.dstip,None,None,0x800,1)
          self.installFlow(ip_packet.dstip,ip_packet.srcip,None,None,0x800,1)
-         Final.resend (self,packet,switch_id)
+         Final.resend (self,packet)
 
   def _handle_PacketIn (self, event):
     """
