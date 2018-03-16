@@ -87,11 +87,8 @@ class Final (object):
 
     packet_in = event.ofp # The actual ofp_packet_in message.
     self.do_final(packet, packet_in, event.port, event.dpid)
-
-    if packet.type == packet.IP_TYPE:
-       ip_packet = packet.payload 
-       if packet.find("ip") is None:
-         return
+    ipv4 = packet.find('ipv4')
+    if packet.type == packet.IP_TYPE and ipv4 is not None:
        print "PACKET IS OF IP TYPE \n"
        print ip_packet.scrip
        print ip_packet.srcport
