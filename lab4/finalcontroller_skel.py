@@ -81,6 +81,7 @@ class Final (object):
     msg.priority = 2
     action = of.ofp_action_output(port = tp_dst)
     msg.actions.append(action)
+    print msg
     self.connection.send(msg)
 
   def resend (self,packet,tp_dst):
