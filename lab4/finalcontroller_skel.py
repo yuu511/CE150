@@ -108,8 +108,6 @@ class Final (object):
          self.installFlow(ip_packet.dstip,ip_packet.srcip,tcp_packet.srcport,tcp_packet.dstport,0x800,6)
          Final.resend (self,packet,switch_id)
        if ip_packet.protocol == ip_packet.ICMP_PROTOCOL:
-         self.installFlow(ip_packet.scrip,ip_packet.dstip,None,None,0x806,None)
-         self.installFlow(ip_packet.dstip,ip_packet.srcip,None,None,0x800,None)
          self.installFlow(ip_packet.srcip,ip_packet.dstip,None,None,0x800,1)
          self.installFlow(ip_packet.dstip,ip_packet.srcip,None,None,0x800,1)
          Final.resend (self,packet)
@@ -129,7 +127,7 @@ class Final (object):
       self.do_final(packet, packet_in, event.port, event.dpid)
     else:
       print "PACKET IS NOT OF IP TYPE. PREPARE TO FLOOD"
-      self.send(event,of.OFPP_FLOOD)
+      self.send(event,of.OFPP_ALL)
 
 def launch ():
   """
