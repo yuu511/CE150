@@ -47,6 +47,16 @@ class Final (object):
     # This binds our PacketIn event listener
     connection.addListeners(self)
 
+  # send packet
+  def send(self,event,dst_port=of.OFPP_ALL):
+    msg = of.ofp_packet_out(in_port=event.ofp.in_port)
+    if event.ofp.buffer_id is not None and event.ofp.buffer_id != -1:
+       msg.buffer_id = event.ofp.buffer_id
+    else
+       return
+    msg.actions.append(of.ofp_action_output(port = dst_port))
+    event.connection.send(msg)
+
   def do_final (self, packet, packet_in, port_on_switch, switch_id):
     # This is where you'll put your code. The following modifications have 
     # been made from Lab 3:
@@ -66,6 +76,7 @@ class Final (object):
       log.warning("Ignoring incomplete packet")
       return
 
+    self.send(event,of.OFPP_ALL)
     packet_in = event.ofp # The actual ofp_packet_in message.
     self.do_final(packet, packet_in, event.port, event.dpid)
 
