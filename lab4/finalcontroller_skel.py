@@ -116,7 +116,6 @@ class Final (object):
     if not packet.parsed:
       log.warning("Ignoring incomplete packet")
       return
-    self.send(event,of.OFPP_FLOOD)
     packet_in = event.ofp # The actual ofp_packet_in message.
     ipv4 = packet.find('ipv4')
     if ipv4 != None:
