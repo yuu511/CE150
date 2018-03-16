@@ -85,11 +85,21 @@ class Final (object):
       log.warning("Ignoring incomplete packet")
       return
 
-    if packet.type != packet.IP_TYPE:
-      print "lul0"
-      self.send(event,of.OFPP_FLOOD)
     packet_in = event.ofp # The actual ofp_packet_in message.
     self.do_final(packet, packet_in, event.port, event.dpid)
+
+    if packet.type == packet.IP_TYPE:
+       ip_packet = packet.payload
+       
+      print "PACKET IS OF IP TYPE \n"
+      print ip_packet.scrip
+      print ip_packet.srcport
+      print ip_packet.dstip
+      print ip_packet.dstport
+      
+    else:
+      print "PACKET IS NOT OF IP TYPE. PREPARE TO FLOOD"
+      self.send(event,of.OFPP_FLOOD)
 
 def launch ():
   """
