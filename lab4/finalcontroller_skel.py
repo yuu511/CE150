@@ -46,6 +46,15 @@ class Final (object):
 
     # This binds our PacketIn event listener
     connection.addListeners(self)
+    
+    # Drop all Packets that aren't defined
+    msg = of.ofp_flow_mod()
+    match = of.ofp_match()
+    msg.match = match
+    msg.hard_timeout = 0
+    msg.soft_timeout = 0
+    msg.priority = 1
+     
 
   # send packet
   def send(self,event,dst_port=of.OFPP_ALL):
