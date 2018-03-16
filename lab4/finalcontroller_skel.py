@@ -111,7 +111,6 @@ class Final (object):
          self.installFlow(ip_packet.srcip,ip_packet.dstip,port_on_switch,switch_id,0x800,6)
          self.installFlow(ip_packet.dstip,ip_packet.srcip,switch_id,port_on_switch,0x800,6)
     print "LUL"
-    Final.resend (self,packet) 
 
   def _handle_PacketIn (self, event):
     """
