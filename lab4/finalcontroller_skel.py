@@ -107,6 +107,7 @@ class Final (object):
          self.installFlow(ip_packet.dstip,ip_packet.srcip,tcp_packet.srcport,tcp_packet.dstport,0x800,6)
          Final.resend (self,packet,switch_id)
        if ip_packet.protocol == ip_packet.ICMP_PROTOCOL:
+         print "yeet"
          self.installFlow(ip_packet.srcip,ip_packet.dstip,None,None,0x800,1)
          self.installFlow(ip_packet.dstip,ip_packet.srcip,None,None,0x800,1)
          Final.resend (self,packet,switch_id)
