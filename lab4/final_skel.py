@@ -50,7 +50,7 @@ class final_topo(Topo):
     self.addLink(s1,h1, port1=8, port2=0)
     self.addLink(s2,h2, port1=9, port2=0)
     self.addLink(s3,h3, port1=10, port2=0)
-    self.addLink(s4,h4, port1=11, port2=0)
+    self.addLink(s4,h4)
     self.addLink(s5,h5, port1=12, port2=0)
 
     self.addLink(s1,s4,port1=1,port2=1)
