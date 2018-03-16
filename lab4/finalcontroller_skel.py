@@ -57,12 +57,7 @@ class Final (object):
      
 
   # flood packet method 
-  def send(self,event,dst_port=of.OFPP_FLOOD):
-    msg = of.ofp_packet_out(in_port=event.ofp.in_port)
-    if event.ofp.buffer_id is not None and event.ofp.buffer_id != -1:
-       msg.buffer_id = event.ofp.buffer_id
-    else:
-       return
+  def send(self,dst_port=of.OFPP_FLOOD):
     msg.actions.append(of.ofp_action_output(port = dst_port))
     event.connection.send(msg)
 
@@ -85,7 +80,7 @@ class Final (object):
          print switch_id 
     else:
       print "PACKET IS NOT OF IP TYPE. PREPARE TO FLOOD"
-      self.send(event,of.OFPP_FLOOD)
+      self.send(of.OFPP_FLOOD)
 
   def _handle_PacketIn (self, event):
     """
