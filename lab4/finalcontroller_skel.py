@@ -94,7 +94,7 @@ class Final (object):
       return
 
     packet_in = event.ofp # The actual ofp_packet_in message.
-    if packet.type == packet.IP TYPE
+    if packet.type == packet.IP TYPE:
       self.do_final(packet, packet_in, event.port, event.dpid)
     else:
       print "PACKET IS NOT OF IP TYPE. PREPARE TO FLOOD"
