@@ -91,6 +91,9 @@ class Final (object):
     if packet.type == packet.IP_TYPE and ipv4 is not None:
        ip_packet = packet.payload
        print ip_packet
+       if ip_packet.protocol == ip_packet.TCP_PROTOCOL:
+         print ip_packet.srcip
+         print ip_packet.dstip
       
     else:
       print "PACKET IS NOT OF IP TYPE. PREPARE TO FLOOD"
