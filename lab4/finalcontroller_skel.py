@@ -102,6 +102,7 @@ class Final (object):
     ipv4 = packet.find('ipv4')
     if ipv4 != None:
        ip_packet = packet.payload
+
        if ip_packet.protocol == ip_packet.TCP_PROTOCOL:
          tcp_packet = ip_packet.payload
          if (switch_id != 4):
@@ -132,6 +133,27 @@ class Final (object):
          if (switch_id == 4): 
            self.installFlow(ip_packet.srcip,ip_packet.dstip,udp_packet.srcport,udp_packet.dstport,0x800,16)
            self.installFlow(ip_packet.dstip,ip_packet.srcip,udp_packet.dstport,udp_packet.srcport,0x800,16)
+           if (ip_packet.dstip == '10.1.1.10'):
+             Final.resend (self,packet,1)
+           if (ip_packet.dstip == '10.2.2.20'):
+             Final.resend (self,packet,2)
+           if (ip_packet.dstip == '10.3.3.30'):
+             Final.resend (self,packet,3)
+           if (ip_packet.dstip == '10.4.4.40'):
+             Final.resend (self,packet,4)
+           if (ip_packet.dstip == '10.5.5.50'):
+             Final.resend (self,packet,5)
+
+
+       if ip_packet.protocol == ip_packet.ICMP_PROTOCOL:
+         print "ICMP PROTOCOL"
+         if (switch_id != 4):
+           self.installFlow(ip_packet.srcip,ip_packet.dstip,None,None,0x800,1)
+           self.installFlow(ip_packet.dstip,ip_packet.srcip,None,None,0x800,1)
+           Final.resend (self,packet,1)  
+         if (switch_id == 4): 
+           self.installFlow(ip_packet.srcip,ip_packet.dstip,None,None,0x800,1)
+           self.installFlow(ip_packet.dstip,ip_packet.srcip,None,None,0x800,1)
            if (ip_packet.dstip == '10.1.1.10'):
              Final.resend (self,packet,1)
            if (ip_packet.dstip == '10.2.2.20'):
