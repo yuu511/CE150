@@ -75,7 +75,7 @@ class Final (object):
     # You should use these to determine where a packet came from. To figure out where a packet 
     # is going, you can use the IP header information.
     ipv4 = packet.find('ipv4')
-    if packet.type == packet.IP_TYPE and ipv4 is not None:
+    if ipv4 is not None:
        ip_packet = packet.payload
        print ip_packet
        if ip_packet.protocol == ip_packet.TCP_PROTOCOL:
@@ -94,7 +94,7 @@ class Final (object):
       return
 
     packet_in = event.ofp # The actual ofp_packet_in message.
-    if packet.type == packet.IP TYPE:
+    if packet.type == packet.IP_TYPE:
       self.do_final(packet, packet_in, event.port, event.dpid)
     else:
       print "PACKET IS NOT OF IP TYPE. PREPARE TO FLOOD"
