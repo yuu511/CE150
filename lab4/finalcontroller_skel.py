@@ -70,10 +70,10 @@ class Final (object):
     match = of.ofp_match()
     match.nw_src = nw_src
     match.nw_dst = nw_dst
-    match.tp_src = int(tp_src)
-    match.tp_dst = int(tp_dst)
-    match.nw_proto = int(nw_proto)
-    match.dl_type = int(dl_type)
+    match.tp_src = tp_src
+    match.tp_dst = tp_dst
+    match.nw_proto = nw_proto
+    match.dl_type = dl_type
     msg.match = match
     msg.hard_timeout = 0
     msg.idle_timeout = 100
