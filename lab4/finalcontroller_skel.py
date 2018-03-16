@@ -79,16 +79,17 @@ class Final (object):
     msg.hard_timeout = 0
     msg.idle_timeout = 100
     msg.priority = 2
-    action = of.ofp_action_output(port = tp_dst)
+    action = of.ofp_action_output(port = of.OFPP_NORMAL)
     msg.actions.append(action)
-    print msg
     self.connection.send(msg)
 
   def resend (self,packet):
-    msg = of.ofp_packet_out()
+    msg = of.ofp_packet_out()    
+    msg.data = packet
     out_port = of.OFPP_NORMAL
     action = of.ofp_action_output(port = out_port)
     msg.actions.append(action)
+    print msg
     self.connection.send(msg)
 
   def do_final (self, packet, packet_in, port_on_switch, switch_id):
@@ -105,6 +106,7 @@ class Final (object):
        if ip_packet.protocol == ip_packet.TCP_PROTOCOL:
          self.installFlow(ip_packet.srcip,ip_packet.dstip,port_on_switch,switch_id,0x800,6)
          self.installFlow(ip_packet.dstip,ip_packet.srcip,switch_id,port_on_switch,0x800,6)
+         Final.resend (self,packet)
 
   def _handle_PacketIn (self, event):
     """
