@@ -103,8 +103,8 @@ class Final (object):
     if ipv4 != None:
        ip_packet = packet.payload
        if ip_packet.protocol == ip_packet.TCP_PROTOCOL:
-         self.installFlow(ip_packet.srcip,ip_packet.dstip,ip_packet.srcport,ip_packet.dstport,0x800,6)
-         self.installFlow(ip_packet.dstip,ip_packet.srcip,ip_packet.dstport,ip_packet.srcport,0x800,6)
+         self.installFlow(ip_packet.srcip,ip_packet.dstip,port_on_switch,switch_id,0x800,6)
+         self.installFlow(ip_packet.dstip,ip_packet.srcip,port_on_switch,switch_id,0x800,6)
          Final.resend (self,packet,switch_id)
 
   def _handle_PacketIn (self, event):
