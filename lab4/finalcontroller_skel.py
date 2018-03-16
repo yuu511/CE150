@@ -86,7 +86,7 @@ class Final (object):
       return
 
     if packet.type == packet.IP_TYPE:
-      print "lul"
+      print "lul0"
     self.send(event,of.OFPP_ALL)
     packet_in = event.ofp # The actual ofp_packet_in message.
     self.do_final(packet, packet_in, event.port, event.dpid)
