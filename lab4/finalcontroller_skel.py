@@ -79,7 +79,7 @@ class Final (object):
     msg.hard_timeout = 0
     msg.idle_timeout = 100
     msg.priority = 2
-    action = of.ofp_action_output(port = tp_src)
+    action = of.ofp_action_output(port = tp_dst)
     msg.actions.append(action)
     self.connection.send(msg)
     print "CALL"
