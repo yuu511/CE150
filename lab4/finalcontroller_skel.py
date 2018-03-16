@@ -104,6 +104,7 @@ class Final (object):
        ip_packet = packet.payload
        if ip_packet.protocol == ip_packet.TCP_PROTOCOL:
          tcp_packet = ip_packet.payload
+         print tcp_packet
          self.installFlow(ip_packet.srcip,ip_packet.dstip,tcp_packet.srcport,tcp_packet.dstport,0x800,6)
          self.installFlow(ip_packet.dstip,ip_packet.srcip,tcp_packet.srcport,tcp_packet.dstport,0x800,6)
          Final.resend (self,packet,switch_id)
