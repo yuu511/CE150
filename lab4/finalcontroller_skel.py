@@ -82,14 +82,13 @@ class Final (object):
     action = of.ofp_action_output(port = of.OFPP_NORMAL)
     msg.actions.append(action)
     self.connection.send(msg)
+    print "CALL"
 
   def resend (self,packet):
     msg = of.ofp_packet_out()
     out_port = of.OFPP_NORMAL
     action = of.ofp_action_output(port = out_port)
     msg.actions.append(action)
-    print msg
-    print "^ THE MF MESSAGE"
     self.connection.send(msg)
 
   def do_final (self, packet, packet_in, port_on_switch, switch_id):
