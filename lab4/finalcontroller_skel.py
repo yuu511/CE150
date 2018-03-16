@@ -79,15 +79,15 @@ class Final (object):
     msg.hard_timeout = 0
     msg.idle_timeout = 100
     msg.priority = 2
-    action = of.ofp_action_output(port = of.OFPP_NORMAL)
+    action = of.ofp_action_output(port = tp_dst)
     msg.actions.append(action)
     self.connection.send(msg)
 
-  def resend (self,packet):
+  def resend (self,packet,tp_dst):
     msg = of.ofp_packet_out()    
     msg.data = packet
     out_port = of.OFPP_NORMAL
-    action = of.ofp_action_output(port = of.OFPP_NORMAL)
+    action = of.ofp_action_output(port = tp_dst)
     msg.actions.append(action)
     self.connection.send(msg)
 
@@ -106,13 +106,13 @@ class Final (object):
          tcp_packet = ip_packet.payload
          print port_on_switch
          print switch_id
-         self.installFlow(ip_packet.srcip,ip_packet.dstip,tcp_packet.srcport,tcp_packet.dstport,0x800,6)
-         self.installFlow(ip_packet.dstip,ip_packet.srcip,tcp_packet.srcport,tcp_packet.dstport,0x800,6)
-         Final.resend (self,packet)
+         self.installFlow(ip_packet.srcip,ip_packet.dstip,port_on_switch,switch_id,0x800,6)
+         self.installFlow(ip_packet.dstip,ip_packet.srcip,switch_id,5,0x800,6)
+         Final.resend (self,packet,port_on_switch)
        if ip_packet.protocol == ip_packet.ICMP_PROTOCOL:
          self.installFlow(ip_packet.srcip,ip_packet.dstip,None,None,0x800,1)
          self.installFlow(ip_packet.dstip,ip_packet.srcip,None,None,0x800,1)
-         Final.resend (self,packet)
+         Final.resend (self,packet,port_on_switch)
 
   def _handle_PacketIn (self, event):
     """
