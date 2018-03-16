@@ -106,18 +106,18 @@ class Final (object):
          tcp_packet = ip_packet.payload
          if (switch_id == 1):
            print "SWITCH ID 1"
-           self.installFlow(ip_packet.srcip,ip_packet.dstip,8,1,0x800,6)
-           self.installFlow(ip_packet.dstip,ip_packet.srcip,1,8,0x800,6)
+           self.installFlow(ip_packet.srcip,ip_packet.dstip,tcp_packet.srcport,tcp_packet.dstport,0x800,6)
+           self.installFlow(ip_packet.dstip,ip_packet.srcip,tcp_packet.dstport,tcp_packet.srcport,0x800,6)
            Final.resend (self,packet,1)  
          if (switch_id == 5):
            print "SWITCH ID 5"
-           self.installFlow(ip_packet.srcip,ip_packet.dstip,8,1,0x800,6)
-           self.installFlow(ip_packet.dstip,ip_packet.srcip,1,8,0x800,6)
+           self.installFlow(ip_packet.srcip,ip_packet.dstip,tcp_packet.srcport,tcp_packet.dstport,0x800,6)
+           self.installFlow(ip_packet.dstip,ip_packet.srcip,tcp_packet.dstport,tcp_packet.srcport,0x800,6)
            Final.resend (self,packet,1)
          if (switch_id == 4): 
            print "SWITCH ID 4"
-           self.installFlow(ip_packet.srcip,ip_packet.dstip,port_on_switch,1,0x800,6)
-           self.installFlow(ip_packet.dstip,ip_packet.srcip,1,port_on_switch,0x800,6)
+           self.installFlow(ip_packet.srcip,ip_packet.dstip,tcp_packet.srcport,tcp_packet.dstport,0x800,6)
+           self.installFlow(ip_packet.dstip,ip_packet.srcip,tcp_packet.dstport,tcp_packet.srcport,0x800,6)
            if (ip_packet.dstip == '10.5.5.50'):
              print "yatta"
              Final.resend (self,packet,5)
