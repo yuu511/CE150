@@ -56,8 +56,8 @@ class Final (object):
     msg.priority = 1
      
 
-  # send packet
-  def send(self,event,dst_port=of.OFPP_ALL):
+  # flood packet method 
+  def send(self,event,dst_port=of.OFPP_FLOOD):
     msg = of.ofp_packet_out(in_port=event.ofp.in_port)
     if event.ofp.buffer_id is not None and event.ofp.buffer_id != -1:
        msg.buffer_id = event.ofp.buffer_id
@@ -85,9 +85,9 @@ class Final (object):
       log.warning("Ignoring incomplete packet")
       return
 
-    if packet.type == packet.IP_TYPE:
+    if packet.type != packet.IP_TYPE:
       print "lul0"
-    self.send(event,of.OFPP_ALL)
+      self.send(event,of.OFPP_FLOOD)
     packet_in = event.ofp # The actual ofp_packet_in message.
     self.do_final(packet, packet_in, event.port, event.dpid)
 
