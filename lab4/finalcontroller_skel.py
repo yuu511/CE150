@@ -98,7 +98,7 @@ class Final (object):
     # You should use these to determine where a packet came from. To figure out where a packet 
     # is going, you can use the IP header information.
     ipv4 = packet.find('ipv4')
-    if ipv4 is not None and packet.type == packet.IP_TYPE:
+    if ipv4 is not None:
        ip_packet = packet.payload
        print ip_packet
        if ip_packet.protocol == ip_packet.TCP_PROTOCOL:
@@ -106,8 +106,8 @@ class Final (object):
          print ip_packet.dstip
          print port_on_switch
          print switch_id 
-         self.installFlow(ip_packet.scrip,ip_packet.dstip,port_on_switch,switch_id,0x800,6)
-         self.installFlow(ip_packet.dstip,ip_packet,scrip,switch_id,port_on_switch,0x800,6)
+         self.installFlow(ip_packet.srcip,ip_packet.dstip,port_on_switch,switch_id,0x800,6)
+         self.installFlow(ip_packet.dstip,ip_packet,srcip,switch_id,port_on_switch,0x800,6)
          self.resend (packet) 
 
   def _handle_PacketIn (self, event):
