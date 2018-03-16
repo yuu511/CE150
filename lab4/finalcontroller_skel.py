@@ -98,7 +98,7 @@ class Final (object):
     # You should use these to determine where a packet came from. To figure out where a packet 
     # is going, you can use the IP header information.
     ipv4 = packet.find('ipv4')
-    if ipv4 is not None:
+    if ipv4 is not None and packet.type == packet.IP_TYPE:
        ip_packet = packet.payload
        print ip_packet
        if ip_packet.protocol == ip_packet.TCP_PROTOCOL:
