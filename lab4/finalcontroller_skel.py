@@ -74,7 +74,18 @@ class Final (object):
     #      (for example, s1 would have switch_id == 1, s2 would have switch_id == 2, etc...)
     # You should use these to determine where a packet came from. To figure out where a packet 
     # is going, you can use the IP header information.
-    print ""
+    ipv4 = packet.find('ipv4')
+    if packet.type == packet.IP_TYPE and ipv4 is not None:
+       ip_packet = packet.payload
+       print ip_packet
+       if ip_packet.protocol == ip_packet.TCP_PROTOCOL:
+         print ip_packet.srcip
+         print ip_packet.dstip
+         print port_on_switch
+         print switch_id 
+    else:
+      print "PACKET IS NOT OF IP TYPE. PREPARE TO FLOOD"
+      self.send(event,of.OFPP_FLOOD)
 
   def _handle_PacketIn (self, event):
     """
@@ -87,19 +98,7 @@ class Final (object):
 
     packet_in = event.ofp # The actual ofp_packet_in message.
     self.do_final(packet, packet_in, event.port, event.dpid)
-    ipv4 = packet.find('ipv4')
-    if packet.type == packet.IP_TYPE and ipv4 is not None:
-       ip_packet = packet.payload
-       print ip_packet
-       if ip_packet.protocol == ip_packet.TCP_PROTOCOL:
-         print ip_packet.srcip
-         print ip_packet.dstip
-         print ip_packet.srcport
-         print ip_packet.dstport
       
-    else:
-      print "PACKET IS NOT OF IP TYPE. PREPARE TO FLOOD"
-      self.send(event,of.OFPP_FLOOD)
 
 def launch ():
   """
