@@ -50,13 +50,13 @@ class final_topo(Topo):
     self.addLink(s1,h1, port1=8, port2=0)
     self.addLink(s2,h2, port1=9, port2=0)
     self.addLink(s3,h3, port1=10, port2=0)
-    self.addLink(s4,h4, port1=4, port2=0)
     self.addLink(s5,h5, port1=12, port2=0)
 
     self.addLink(s1,s4,port1=1,port2=1)
     self.addLink(s2,s4,port1=1,port2=2)
     self.addLink(s3,s4,port1=1,port2=3)
-    self.addLink(s5,s4,port1=1,port2=5)
+    self.addLink(s5,s4,port1=1,port2=4)
+    self.addLink(s4,h4, port1=5, port2=0)
 
 def configure():
   topo = final_topo()
