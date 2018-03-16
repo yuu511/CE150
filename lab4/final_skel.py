@@ -55,7 +55,7 @@ class final_topo(Topo):
     self.addLink(s1,s4,port1=1,port2=1)
     self.addLink(s2,s4,port1=1,port2=2)
     self.addLink(s3,s4,port1=1,port2=3)
-    self.addLink(h4,s4,port1=1,port2=4)
+    self.addLink(h4,s4)
     self.addLink(s5,s4,port1=1,port2=5)
 
 
@@ -63,7 +63,7 @@ def configure():
   topo = final_topo()
   net = Mininet(topo=topo, controller=RemoteController)
   net.start()
-  h1, h2, h3, h4, h5 = net.get('h1', 'h2', 'h3', 'h4','h5')
+  h1, h2, h3, h4, h5 = net.get('h1', 'h2', 'h3','h4','h5')
   CLI(net)
   
   net.stop()
