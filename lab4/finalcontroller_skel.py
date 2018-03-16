@@ -88,6 +88,9 @@ class Final (object):
     out_port = of.OFPP_NORMAL
     action = of.ofp_action_output(port = out_port)
     msg.actions.append(action)
+    print msg
+    print "^ THE MF MESSAGE"
+    self.connection.send(msg)
 
   def do_final (self, packet, packet_in, port_on_switch, switch_id):
     # This is where you'll put your code. The following modifications have 
@@ -108,7 +111,8 @@ class Final (object):
          print switch_id 
          self.installFlow(ip_packet.srcip,ip_packet.dstip,port_on_switch,switch_id,0x800,6)
          self.installFlow(ip_packet.dstip,ip_packet.srcip,switch_id,port_on_switch,0x800,6)
-         self.resend (packet) 
+    print "LUL"
+    Firewall.resend (self,packet) 
 
   def _handle_PacketIn (self, event):
     """
