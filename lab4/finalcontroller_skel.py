@@ -108,7 +108,6 @@ class Final (object):
          if (switch_id != 4):
            self.installFlow(ip_packet.srcip,ip_packet.dstip,tcp_packet.srcport,tcp_packet.dstport,0x800,6)
            self.installFlow(ip_packet.dstip,ip_packet.srcip,tcp_packet.dstport,tcp_packet.srcport,0x800,6)
-           print "STOPPU"
            Final.resend (self,packet,1)  
          if (switch_id == 4): 
            self.installFlow(ip_packet.srcip,ip_packet.dstip,tcp_packet.srcport,tcp_packet.dstport,0x800,6)
