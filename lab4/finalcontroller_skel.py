@@ -146,9 +146,6 @@ class Final (object):
 
        if ip_packet.protocol == ip_packet.ICMP_PROTOCOL:
          icmp_packet = ip_packet.payload 
-         if valid [ip_packet.srcip] != True :
-           print ip_packet.srcip
-           print "NOT VALID!" 
 
   def _handle_PacketIn (self, event):
     """
@@ -168,6 +165,7 @@ class Final (object):
     valid['10.3.3.30']=True
     valid['10.4.4.40']=True
     valid['10.5.5.50']=True
+    print valid
     if ipv4 != None:
       self.do_final(packet, packet_in, event.port, event.dpid)
         # FILTERS for ICMP are done in do_final.
