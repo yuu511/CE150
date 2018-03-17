@@ -177,13 +177,14 @@ class Final (object):
       log.warning("Ignoring incomplete packet")
       return
     packet_in = event.ofp # The actual ofp_packet_in message.
-    #ipv4 = packet.find('ipv4')
-    #if ipv4 != None:
-    #  self.do_final(packet, packet_in, event.port, event.dpid)
-    #else:
-    #  print "PACKET IS NOT OF IP TYPE. PREPARE TO FLOOD"
-    #  self.send(event,of.OFPP_ALL)
-    self.send(event,of.OFPP_ALL)
+    ipv4 = packet.find('ipv4')
+    arpp = packet.find('arp')
+    if ipv4 != None:
+      self.do_final(packet, packet_in, event.port, event.dpid)
+    else:
+      if (arpp !=None):
+        print "arp sniff"
+      self.send(event,of.OFPP_ALL)
 def launch ():
   """
   Starts the component
