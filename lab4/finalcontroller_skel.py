@@ -146,7 +146,7 @@ class Final (object):
 
        if ip_packet.protocol == ip_packet.ICMP_PROTOCOL:
           if valid.get(ip_packet.srcip) is None:
-            print "NOT!!!!"
+            print ip_packet.scrip 
   def _handle_PacketIn (self, event):
     """
     Handles packet in messages from the switch.
