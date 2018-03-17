@@ -48,12 +48,14 @@ class Final (object):
     connection.addListeners(self)
     
    #  Drop all Packets that aren't defined
-    msg = of.ofp_flow_mod()
-    match = of.ofp_match()
-    msg.match = match
-    msg.hard_timeout = 0
-    msg.soft_timeout = 0
-    msg.priority = 1
+   #  msg = of.ofp_flow_mod()
+   #  match = of.ofp_match()
+   #  msg.match = match
+   #  msg.hard_timeout = 0
+   #  msg.soft_timeout = 0
+   #  msg.priority = 1
+    self.installFlow(None,None,None,None,0x800,1)
+    self.installFlow(None,None,None,None,0x800,1)
      
 
   # flood packet method 
@@ -147,8 +149,6 @@ class Final (object):
        if ip_packet.protocol == ip_packet.ICMP_PROTOCOL:
          print "ICMP PROTOCOL"
          icmp_packet = ip_packet.payload 
-         self.installFlow(None,None,None,None,0x800,1)
-         self.installFlow(None,None,None,None,0x800,1)
 
   def _handle_PacketIn (self, event):
     """
