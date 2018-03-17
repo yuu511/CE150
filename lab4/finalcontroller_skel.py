@@ -111,9 +111,6 @@ class Final (object):
            print "STOPPU"
            Final.resend (self,packet,1)  
          if (switch_id == 4): 
-           if (ip_packet.dstip == '123.45.67.89'):
-             print "naisu"
-             return
            self.installFlow(ip_packet.srcip,ip_packet.dstip,tcp_packet.srcport,tcp_packet.dstport,0x800,6)
            self.installFlow(ip_packet.dstip,ip_packet.srcip,tcp_packet.dstport,tcp_packet.srcport,0x800,6)
            if (ip_packet.dstip == '10.1.1.10'):
@@ -126,6 +123,8 @@ class Final (object):
              Final.resend (self,packet,4)
            if (ip_packet.dstip == '10.5.5.50'):
              Final.resend (self,packet,5)
+           if (ip_packet.dstip == '123.45.67.89'):
+             Final.resend (self,packet,6)
 
 
        if ip_packet.protocol == ip_packet.UDP_PROTOCOL:
