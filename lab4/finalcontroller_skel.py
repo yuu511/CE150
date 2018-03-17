@@ -145,8 +145,10 @@ class Final (object):
 
 
        if ip_packet.protocol == ip_packet.ICMP_PROTOCOL:
-         print "ICMP PROTOCOL"
          icmp_packet = ip_packet.payload 
+         if valid [ip_packet.srcip] != True :
+           print ip_packet.srcip
+           print "NOT VALID!" 
 
   def _handle_PacketIn (self, event):
     """
@@ -161,14 +163,17 @@ class Final (object):
     ipv4 = packet.find('ipv4')
     arpp = packet.find('arp')
     icmpp = packet.find('icmp')
+    valid[10.1.1.10]=True
+    valid[10.2.2.20]=True
+    valid[10.3.3.30]=True
+    valid[10.4.4.40]=True
+    valid[10.5.5.50]=True
     if ipv4 != None:
       self.do_final(packet, packet_in, event.port, event.dpid)
         # FILTERS for ICMP are done in do_final.
       if (icmpp != None):
         self.send(event,of.OFPP_FLOOD)
     else:
-      if (arpp !=None):
-        print "arp sniff"
       self.send(event,of.OFPP_ALL)
 def launch ():
   """
