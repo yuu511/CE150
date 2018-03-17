@@ -54,8 +54,6 @@ class Final (object):
    #  msg.hard_timeout = 0
    #  msg.soft_timeout = 0
    #  msg.priority = 1
-    self.installFlow(None,None,None,None,0x800,1)
-    self.installFlow(None,None,None,None,0x800,1)
      
 
   # flood packet method 
@@ -162,8 +160,12 @@ class Final (object):
     packet_in = event.ofp # The actual ofp_packet_in message.
     ipv4 = packet.find('ipv4')
     arpp = packet.find('arp')
+    icmpp = packet.find('icmp')
     if ipv4 != None:
       self.do_final(packet, packet_in, event.port, event.dpid)
+        # FILTERS for ICMP are done in do_final.
+        if (icmpp != None):
+          self.send(event,of.OFPP_FLOOD)
     else:
       if (arpp !=None):
         print "arp sniff"
