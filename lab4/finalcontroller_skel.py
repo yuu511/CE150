@@ -173,9 +173,8 @@ class Final (object):
     packet = event.parsed # This is the parsed packet data.
     if not packet.parsed:
       log.warning("Ignoring incomplete packet")
-      return 
+      return
     packet_in = event.ofp # The actual ofp_packet_in message.
-    self.send(event,of.OFPP_ALL)
     ipv4 = packet.find('ipv4')
     if ipv4 != None:
       self.do_final(packet, packet_in, event.port, event.dpid)
@@ -191,4 +190,3 @@ def launch ():
     log.debug("Controlling %s" % (event.connection,))
     Final(event.connection)
   core.openflow.addListenerByName("ConnectionUp", start_switch)
-
