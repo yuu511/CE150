@@ -132,8 +132,6 @@ class Final (object):
              Final.resend (self,packet,2)
            if (ip_packet.dstip == '10.3.3.30'):
              Final.resend (self,packet,3)
-           if (ip_packet.dstip == '10.4.4.40'):
-             Final.resend (self,packet,4)
            if (ip_packet.dstip == '10.5.5.50'):
              Final.resend (self,packet,5)
 
@@ -160,8 +158,6 @@ class Final (object):
              Final.resend (self,packet,2)
            if (ip_packet.dstip == '10.3.3.30'):
              Final.resend (self,packet,3)
-           if (ip_packet.dstip == '10.4.4.40'):
-             Final.resend (self,packet,4)
            if (ip_packet.dstip == '10.5.5.50'):
              Final.resend (self,packet,5)
 
