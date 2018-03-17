@@ -164,8 +164,8 @@ class Final (object):
     if ipv4 != None:
       self.do_final(packet, packet_in, event.port, event.dpid)
         # FILTERS for ICMP are done in do_final.
-        if (icmpp != None):
-          self.send(event,of.OFPP_FLOOD)
+      if (icmpp != None):
+        self.send(event,of.OFPP_FLOOD)
     else:
       if (arpp !=None):
         print "arp sniff"
