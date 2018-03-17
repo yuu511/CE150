@@ -122,8 +122,6 @@ class Final (object):
              Final.resend (self,packet,4)
            if (ip_packet.dstip == '10.5.5.50'):
              Final.resend (self,packet,5)
-           if (ip_packet.dstip == '123.45.67.89'):
-             Final.resend (self,packet,6)
 
 
        if ip_packet.protocol == ip_packet.UDP_PROTOCOL:
@@ -145,9 +143,6 @@ class Final (object):
              Final.resend (self,packet,4)
            if (ip_packet.dstip == '10.5.5.50'):
              Final.resend (self,packet,5)
-           if (ip_packet.dstip == '123.45.67.89'):
-             print "Naisu"
-             Final.resend (self,packet,6)
 
 
        if ip_packet.protocol == ip_packet.ICMP_PROTOCOL:
@@ -196,3 +191,4 @@ def launch ():
     log.debug("Controlling %s" % (event.connection,))
     Final(event.connection)
   core.openflow.addListenerByName("ConnectionUp", start_switch)
+
