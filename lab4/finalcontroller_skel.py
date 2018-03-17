@@ -105,16 +105,7 @@ class Final (object):
 
        if ip_packet.protocol == ip_packet.TCP_PROTOCOL:
          tcp_packet = ip_packet.payload
-          
-         if (ip_packet.dstip == '123.45.67.89'):
-             print "STOPPU"
-             return
-
          if (switch_id != 4):
-           print "aga aga"
-           if (ip_packet.dstip == '123.45.67.89'):
-             print "herro"
-             return
            self.installFlow(ip_packet.srcip,ip_packet.dstip,tcp_packet.srcport,tcp_packet.dstport,0x800,6)
            self.installFlow(ip_packet.dstip,ip_packet.srcip,tcp_packet.dstport,tcp_packet.srcport,0x800,6)
            Final.resend (self,packet,1)  
