@@ -163,11 +163,11 @@ class Final (object):
     ipv4 = packet.find('ipv4')
     arpp = packet.find('arp')
     icmpp = packet.find('icmp')
-    valid[10.1.1.10]=True
-    valid[10.2.2.20]=True
-    valid[10.3.3.30]=True
-    valid[10.4.4.40]=True
-    valid[10.5.5.50]=True
+    valid['10.1.1.10']=True
+    valid['10.2.2.20']=True
+    valid['10.3.3.30']=True
+    valid['10.4.4.40']=True
+    valid['10.5.5.50']=True
     if ipv4 != None:
       self.do_final(packet, packet_in, event.port, event.dpid)
         # FILTERS for ICMP are done in do_final.
