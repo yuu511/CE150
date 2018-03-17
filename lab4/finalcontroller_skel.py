@@ -147,8 +147,8 @@ class Final (object):
        if ip_packet.protocol == ip_packet.ICMP_PROTOCOL:
          print "ICMP PROTOCOL"
          icmp_packet = ip_packet.payload 
-         self.installFlow(ip_packet.srcip,ip_packet.dstip,None,None,0x800,1)
-         self.installFlow(ip_packet.dstip,ip_packet.srcip,None,None,0x800,1)
+         self.installFlow(None,None,None,None,0x800,1)
+         self.installFlow(None,None,None,None,0x800,1)
 
   def _handle_PacketIn (self, event):
     """
