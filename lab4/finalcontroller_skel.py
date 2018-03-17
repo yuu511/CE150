@@ -33,7 +33,7 @@ from pox.core import core
 import pox.openflow.libopenflow_01 as of
 
 log = core.getLogger()
-valid={}
+valid = {'10.1.1.10','10.2.2.20','10.3.3.30','10.5.5.50'}
 class Final (object):
   """
   A Firewall object is created for each switch that connects.
@@ -65,7 +65,8 @@ class Final (object):
        return
     msg.actions.append(of.ofp_action_output(port = dst_port))
     event.connection.send(msg)
-   
+
+  # TCP + ICMP rule installer
   def installFlow (self,nw_src,nw_dst,tp_src,tp_dst,dl_type,nw_proto):
     msg = of.ofp_flow_mod()
     match = of.ofp_match()
@@ -76,12 +77,30 @@ class Final (object):
     match.nw_proto = nw_proto
     match.dl_type = dl_type
     msg.match = match
-    msg.hard_timeout = 0
-    msg.idle_timeout = 100
+    msg.hard_timeout = 10
+    msg.idle_timeout = 30
     msg.priority = 2
     action = of.ofp_action_output(port = of.OFPP_NORMAL)
     msg.actions.append(action)
     self.connection.send(msg)
+
+
+  #  Drop rule :TCP +ICMP
+  def drop (self,nw_src,nw_dst,tp_src,tp_dst,dl_type,nw_proto):
+    msg = of.ofp_flow_mod()
+    match = of.ofp_match()
+    match.nw_src = nw_src
+    match.nw_dst = nw_dst
+    match.tp_src = tp_src
+    match.tp_dst = tp_dst
+    match.nw_proto = nw_proto
+    match.dl_type = dl_type
+    msg.match = match
+    msg.hard_timeout = 0
+    msg.idle_timeout = 0
+    msg.priority = 3
+    self.connection.send(msg)
+
 
   def resend (self,packet,tp_dst):
     msg = of.ofp_packet_out()    
@@ -102,8 +121,15 @@ class Final (object):
     ipv4 = packet.find('ipv4')
     if ipv4 != None:
        ip_packet = packet.payload
+
        if ip_packet.protocol == ip_packet.TCP_PROTOCOL:
          tcp_packet = ip_packet.payload
+         if not str(ip_packet.srcip) in valid: 
+           self.drop(ip_packet.srcip,ip_packet.dstip,None,None,0x800,6)
+           self.drop(ip_packet.dstip,ip_packet.srcip,None,None,0x800,6)
+         if not str(ip_packet.dstip) in valid: 
+           self.drop(ip_packet.srcip,ip_packet.dstip,None,None,0x800,6)
+           self.drop(ip_packet.dstip,ip_packet.srcip,None,None,0x800,6)
          if (switch_id != 4):
            self.installFlow(ip_packet.srcip,ip_packet.dstip,tcp_packet.srcport,tcp_packet.dstport,0x800,6)
            self.installFlow(ip_packet.dstip,ip_packet.srcip,tcp_packet.dstport,tcp_packet.srcport,0x800,6)
@@ -125,13 +151,20 @@ class Final (object):
 
        if ip_packet.protocol == ip_packet.UDP_PROTOCOL:
          udp_packet = ip_packet.payload
+         if not str(ip_packet.srcip) in valid: 
+           self.drop(ip_packet.srcip,ip_packet.dstip,None,None,0x800,17)
+           self.drop(ip_packet.dstip,ip_packet.srcip,None,None,0x800,17)
+         if not str(ip_packet.dstip) in valid: 
+           self.drop(ip_packet.srcip,ip_packet.dstip,None,None,0x800,17)
+           self.drop(ip_packet.dstip,ip_packet.srcip,None,None,0x800,17)
+            
          if (switch_id != 4):
-           self.installFlow(ip_packet.srcip,ip_packet.dstip,udp_packet.srcport,udp_packet.dstport,0x800,16)
-           self.installFlow(ip_packet.dstip,ip_packet.srcip,udp_packet.dstport,udp_packet.srcport,0x800,16)
+           self.installFlow(ip_packet.srcip,ip_packet.dstip,udp_packet.srcport,udp_packet.dstport,0x800,17)
+           self.installFlow(ip_packet.dstip,ip_packet.srcip,udp_packet.dstport,udp_packet.srcport,0x800,17)
            Final.resend (self,packet,1)  
          if (switch_id == 4): 
-           self.installFlow(ip_packet.srcip,ip_packet.dstip,udp_packet.srcport,udp_packet.dstport,0x800,16)
-           self.installFlow(ip_packet.dstip,ip_packet.srcip,udp_packet.dstport,udp_packet.srcport,0x800,16)
+           self.installFlow(ip_packet.srcip,ip_packet.dstip,udp_packet.srcport,udp_packet.dstport,0x800,17)
+           self.installFlow(ip_packet.dstip,ip_packet.srcip,udp_packet.dstport,udp_packet.srcport,0x800,17)
            if (ip_packet.dstip == '10.1.1.10'):
              Final.resend (self,packet,1)
            if (ip_packet.dstip == '10.2.2.20'):
@@ -145,8 +178,9 @@ class Final (object):
 
 
        if ip_packet.protocol == ip_packet.ICMP_PROTOCOL:
-          if valid.get(ip_packet.srcip) == None:
-            print ip_packet.scrip 
+         if not str(ip_packet.srcip) in valid: 
+           self.drop(ip_packet.dstip,ip_packet.srcip,None,None,0x800,1)
+            
   def _handle_PacketIn (self, event):
     """
     Handles packet in messages from the switch.
@@ -160,19 +194,13 @@ class Final (object):
     ipv4 = packet.find('ipv4')
     arpp = packet.find('arp')
     icmpp = packet.find('icmp')
-    valid['10.1.1.10']=True
-    valid['10.2.2.20']=True
-    valid['10.3.3.30']=True
-    valid['10.4.4.40']=True
-    valid['10.5.5.50']=True
-    print valid
     if ipv4 != None:
       self.do_final(packet, packet_in, event.port, event.dpid)
         # FILTERS for ICMP are done in do_final.
       if (icmpp != None):
         self.send(event,of.OFPP_FLOOD)
     else:
-      self.send(event,of.OFPP_ALL)
+      self.send(event,of.OFPP_FLOOD)
 def launch ():
   """
   Starts the component
