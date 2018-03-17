@@ -17,17 +17,6 @@
 # port, do the following, replacing <PORT> with the port number the 
 # switch should send the packets out:
 #
-#    msg = of.ofp_flow_mod()
-#    msg.match = of.ofp_match.from_packet(packet)
-#    msg.idle_timeout = 30
-#    msg.hard_timeout = 30
-#
-#    msg.actions.append(of.ofp_action_output(port = <PORT>))
-#    msg.data = packet_in
-#    self.connection.send(msg)
-#
-# To drop packets, simply omit the action.
-#
 
 from pox.core import core
 import pox.openflow.libopenflow_01 as of
@@ -66,7 +55,7 @@ class Final (object):
     msg.actions.append(of.ofp_action_output(port = dst_port))
     event.connection.send(msg)
 
-  # TCP + ICMP rule installer
+  # Generic rule installer
   def installFlow (self,nw_src,nw_dst,tp_src,tp_dst,dl_type,nw_proto):
     msg = of.ofp_flow_mod()
     match = of.ofp_match()
@@ -85,7 +74,7 @@ class Final (object):
     self.connection.send(msg)
 
 
-  #  Drop rule :TCP +ICMP
+  #  Generic Drop rule installer
   def drop (self,nw_src,nw_dst,tp_src,tp_dst,dl_type,nw_proto):
     msg = of.ofp_flow_mod()
     match = of.ofp_match()
