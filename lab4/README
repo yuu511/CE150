@@ -1,10 +1,2 @@
-Elijah Cordova
-ejcordov@ucsc.edu
-ejcordov
-1425119
-final project
-
-elijahcordova-labfinal.pdf : Writeup to the lab with the appropriate screenshots.
-elijahcordova-final_skel.py : Creates a topology 
-elijahcordova-finalcontroller_skel.py : Creates a switch that allows for all traffic among trusted users only. Blocks all IP requests for untrusted users.
+Python Software Defined Network.
 
